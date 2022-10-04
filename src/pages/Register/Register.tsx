@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { RegisterFormData } from "../../shared/types";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { RegisterFormData, RegisterUserData } from "../../shared/types";
+import { register, reset } from "../../features/auth/authSlice";
+import { RootState, AppDispatch } from "../../app/store";
 import {
   RegisterButton,
   RegisterForm,
@@ -14,6 +19,7 @@ import {
 } from "./Register.style";
 import { ReactComponent as EmailIcon } from "../../img/Email.svg";
 import { ReactComponent as PasswordIcon } from "../../img/Password.svg";
+import Spinner from "../../components/Spinner";
 
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
@@ -23,6 +29,24 @@ const Register = () => {
   });
 
   const { email, password, password2 } = formData;
+
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -36,10 +60,27 @@ const Register = () => {
     e.preventDefault();
   };
 
+  const onClick = () => {
+    if (password !== password2) {
+      toast.error("Passwords do not match");
+    } else {
+      const userData: RegisterUserData = {
+        email,
+        plainPassword: password,
+      };
+
+      dispatch(register(userData));
+    }
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <RegisterContainer>
       <RegisterHeading>
-        <h1>Zaczynamy</h1>
+        <h1>Zaczynamy!</h1>
       </RegisterHeading>
 
       <RegisterForm>
@@ -96,7 +137,7 @@ const Register = () => {
             </RegisterInputWrapper>
           </RegisterFormGroup>
           <RegisterFormGroup>
-            <RegisterButton>Zarejestruj się</RegisterButton>
+            <RegisterButton onClick={onClick}>Zarejestruj się</RegisterButton>
           </RegisterFormGroup>
         </form>
       </RegisterForm>

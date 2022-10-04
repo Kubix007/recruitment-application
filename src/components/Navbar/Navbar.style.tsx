@@ -31,3 +31,18 @@ export const NavbarLink = styled(Link)`
   color: #000;
   font-family: FiraSans-Book;
 `;
+
+export const NavbarButton = styled.button`
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  border: 1px solid #24399b;
+  border-radius: 7px;
+  opacity: 1;
+  width: 100%;
+  font-family: FiraSans-Book;
+  background-color: white;
+  padding: 5%;
+  &:hover {
+    background-color: #24399b;
+    color: white;
+  }
+`;
