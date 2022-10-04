@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { RegisterFormData, RegisterUserData } from "../../shared/types";
+import { RegisterFormData } from "../../shared/types";
 import { register, reset } from "../../features/auth/authSlice";
 import { RootState, AppDispatch } from "../../app/store";
 import {
@@ -16,19 +16,75 @@ import {
   RegisterInputWrapper,
   EmailInputIcon,
   PasswordInputIcon,
+  ParagraphError,
 } from "./Register.style";
 import { ReactComponent as EmailIcon } from "../../img/Email.svg";
 import { ReactComponent as PasswordIcon } from "../../img/Password.svg";
 import Spinner from "../../components/Spinner";
+import { useFormik, FormikHelpers } from "formik";
+import * as yup from "yup";
+
+const validationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("*niepoprawny adres e-mail")
+    .required("*Pole wymagane"),
+  password: yup
+    .string()
+    .min(8, "*zbyt mała ilość znaków")
+    .required("*Pole wymagane")
+    .test("passwords-match", "*różne hasła", function (value) {
+      return this.parent.password2 === value;
+    }),
+  password2: yup
+    .string()
+    .min(8, "*zbyt mała ilość znaków")
+    .required("*Pole wymagane")
+    .test("passwords-match", "*różne hasła", function (value) {
+      return this.parent.password === value;
+    }),
+});
 
 const Register = () => {
-  const [formData, setFormData] = useState<RegisterFormData>({
-    email: "",
-    password: "",
-    password2: "",
-  });
+  const onSubmit = async (
+    values: RegisterFormData,
+    actions: FormikHelpers<RegisterFormData>
+  ) => {
+    const userData = {
+      email: values.email,
+      plainPassword: values.password,
+    };
+    dispatch(register(userData));
+    actions.resetForm();
+  };
 
-  const { email, password, password2 } = formData;
+  const handleClick = () => {
+    const userData = {
+      email: values.email,
+      plainPassword: values.password,
+    };
+    console.log("xd");
+    dispatch(register(userData));
+  };
+
+  const {
+    values,
+    errors,
+    touched,
+    isValid,
+    dirty,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      password2: "",
+    },
+    validationSchema,
+    onSubmit,
+  });
 
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -48,31 +104,6 @@ const Register = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
-        .value,
-    }));
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
-  const onClick = () => {
-    if (password !== password2) {
-      toast.error("Passwords do not match");
-    } else {
-      const userData: RegisterUserData = {
-        email,
-        plainPassword: password,
-      };
-
-      dispatch(register(userData));
-    }
-  };
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -84,60 +115,79 @@ const Register = () => {
       </RegisterHeading>
 
       <RegisterForm>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <RegisterFormGroup>
             <RegisterLabel htmlFor="email">E-mail</RegisterLabel>
             <RegisterInputWrapper>
               <RegisterInput
-                type="text"
-                className="form-control"
+                value={values.email}
+                onChange={handleChange}
                 id="email"
-                name="email"
-                placeholder="Wprowadź swój adres email"
-                onChange={onChange}
-                value={email}
+                type="text"
+                placeholder="Wprowadź swój adres e-mail"
+                onBlur={handleBlur}
+                className={errors.email && touched.email ? "input-error" : ""}
               />
               <EmailInputIcon>
                 <EmailIcon />
               </EmailInputIcon>
             </RegisterInputWrapper>
+            <ParagraphError>
+              {errors.email && touched.email && errors.email}
+            </ParagraphError>
           </RegisterFormGroup>
           <RegisterFormGroup>
             <RegisterLabel htmlFor="password">Hasło</RegisterLabel>
             <RegisterInputWrapper>
               <RegisterInput
-                type="text"
-                className="form-control"
+                value={values.password}
+                onChange={handleChange}
                 id="password"
-                name="password"
+                type="password"
                 placeholder="Minimum 8 znaków"
-                onChange={onChange}
-                value={password}
+                onBlur={handleBlur}
+                className={
+                  errors.password && touched.password ? "input-error" : ""
+                }
               />
               <PasswordInputIcon>
                 <PasswordIcon />
               </PasswordInputIcon>
             </RegisterInputWrapper>
+            <ParagraphError>
+              {errors.password && touched.password && errors.password}
+            </ParagraphError>
           </RegisterFormGroup>
           <RegisterFormGroup>
             <RegisterLabel htmlFor="password2">Powtórz hasło</RegisterLabel>
             <RegisterInputWrapper>
               <RegisterInput
-                type="text"
-                className="form-control"
+                value={values.password2}
+                onChange={handleChange}
                 id="password2"
-                name="password2"
+                type="password"
                 placeholder="Minimum 8 znaków"
-                onChange={onChange}
-                value={password2}
+                onBlur={handleBlur}
+                className={
+                  errors.password2 && touched.password2 ? "input-error" : ""
+                }
               />
               <PasswordInputIcon>
                 <PasswordIcon />
               </PasswordInputIcon>
             </RegisterInputWrapper>
+            <ParagraphError>
+              {errors.password2 && touched.password2 && errors.password2}
+            </ParagraphError>
           </RegisterFormGroup>
           <RegisterFormGroup>
-            <RegisterButton onClick={onClick}>Zarejestruj się</RegisterButton>
+            <RegisterButton
+              onClick={handleClick}
+              disabled={!(isValid && dirty)}
+              type="submit"
+            >
+              Zarejestruj się
+            </RegisterButton>
           </RegisterFormGroup>
         </form>
       </RegisterForm>

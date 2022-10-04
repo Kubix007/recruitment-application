@@ -15,11 +15,12 @@ export const LoginButton = styled.button`
   opacity: 1;
   width: 100%;
   font-family: FiraSans-Book;
-  background-color: white;
+  background-color: #24399b;
+  color: white;
   padding: 5%;
   &:hover {
-    background-color: #24399b;
-    color: white;
+    background-color: white;
+    color: black;
   }
   font-size: 28.77px;
 `;
@@ -86,4 +87,13 @@ export const PasswordInputIcon = styled.div`
   top: 43%;
   left: 9px;
   transform: translateY(-50%);
+`;
+
+export const ParagraphError = styled.p`
+  font-family: FiraSans-Light;
+  font-size: 17.95px;
+  color: #ff1d25;
+  text-align: left;
+  display: block;
+  width: 100%;
 `;
