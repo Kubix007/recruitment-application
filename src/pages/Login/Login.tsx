@@ -8,7 +8,12 @@ import {
   LoginLabel,
   LoginInput,
   LoginContainer,
+  LoginInputWrapper,
+  EmailInputIcon,
+  PasswordInputIcon,
 } from "./Login.style";
+import { ReactComponent as EmailIcon } from "../../img/Email.svg";
+import { ReactComponent as PasswordIcon } from "../../img/Password.svg";
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -40,27 +45,37 @@ const Login = () => {
         <form onSubmit={onSubmit}>
           <LoginFormGroup>
             <LoginLabel htmlFor="email">E-mail</LoginLabel>
-            <LoginInput
-              type="text"
-              className="form-control"
-              id="email"
-              name="email"
-              placeholder="Wprowadź swój adres email"
-              onChange={onChange}
-              value={email}
-            />
+            <LoginInputWrapper>
+              <LoginInput
+                type="text"
+                className="form-control"
+                id="email"
+                name="email"
+                placeholder="Wprowadź swój adres email"
+                onChange={onChange}
+                value={email}
+              />
+              <EmailInputIcon>
+                <EmailIcon />
+              </EmailInputIcon>
+            </LoginInputWrapper>
           </LoginFormGroup>
           <LoginFormGroup>
             <LoginLabel htmlFor="password">Hasło</LoginLabel>
-            <LoginInput
-              type="text"
-              className="form-control"
-              id="password"
-              name="password"
-              placeholder="Wprowadź swoje hasło"
-              onChange={onChange}
-              value={password}
-            />
+            <LoginInputWrapper>
+              <LoginInput
+                type="text"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Minimum 8 znaków"
+                onChange={onChange}
+                value={password}
+              />
+              <PasswordInputIcon>
+                <PasswordIcon />
+              </PasswordInputIcon>
+            </LoginInputWrapper>
           </LoginFormGroup>
           <LoginFormGroup>
             <LoginButton>Zaloguj się</LoginButton>

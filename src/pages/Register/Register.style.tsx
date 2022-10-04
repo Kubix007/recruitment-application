@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
   /* UI Properties */
   padding-box;
   border: 0.5px solid #c6ceda;
@@ -8,7 +8,7 @@ export const LoginContainer = styled.div`
   opacity: 1;
   padding: 10%;
 `;
-export const LoginButton = styled.button`
+export const RegisterButton = styled.button`
   transform: matrix(1, 0, 0, 1, 0, 0);
   border: 1px solid #24399b;
   border-radius: 7px;
@@ -24,17 +24,17 @@ export const LoginButton = styled.button`
   font-size: 28.77px;
 `;
 
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
   width: 70%;
   margin: 0 auto;
 `;
 
-export const LoginFormGroup = styled.div`
+export const RegisterFormGroup = styled.div`
   margin-bottom: 10px;
   display: block;
 `;
 
-export const LoginHeading = styled.section`
+export const RegisterHeading = styled.section`
   font-size: 37.69px;
   font-weight: 900;
   margin-bottom: 50px;
@@ -42,14 +42,14 @@ export const LoginHeading = styled.section`
   font-family: FiraSans-Bold;
 `;
 
-export const LoginLabel = styled.label`
+export const RegisterLabel = styled.label`
   font-family: FiraSans-Medium;
   font-size: 17.95px;
   text-align: left;
   display: block;
   width: 100%;
 `;
-export const LoginInput = styled.input`
+export const RegisterInput = styled.input`
   font-family: FiraSans-Light;
   font-size: 21.54px;
   width: 100%;
@@ -62,7 +62,7 @@ export const LoginInput = styled.input`
   left: 10px;
 `;
 
-export const LoginInputWrapper = styled.div`
+export const RegisterInputWrapper = styled.div`
   position: relative;
 `;
 
