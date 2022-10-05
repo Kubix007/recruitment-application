@@ -1,20 +1,29 @@
-export interface RegisterFormData {
+export interface IRegisterFormData {
   email: string;
   password: string;
   password2: string;
 }
 
-export interface LoginFormData {
+export interface ILoginFormData {
   username: string;
   password: string;
 }
 
-export interface RegisterUserData {
+export interface IRegisterUserData {
   email: string;
   plainPassword: string;
 }
 
-export interface AuthToken {
+export interface IAuthToken {
   token?: string;
   refresh_token: string;
+}
+
+export interface IFetchedUsers {
+  id: number;
+  name: string;
+  surname: string;
+  email: string;
+  birth_date: string;
+  is_activated: boolean;
 }

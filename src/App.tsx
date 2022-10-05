@@ -12,7 +12,7 @@ import { refresh, refreshToken } from "./features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./app/store";
 import { logout } from "./features/auth/authSlice";
-import { AuthToken } from "./shared/types";
+import { IAuthToken } from "./shared/types";
 
 function App() {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -28,11 +28,11 @@ function App() {
         error?.response?.data.message === "Expired JWT Token"
       ) {
         prevRequest.sent = true;
-        const data: AuthToken = {
+        const data: IAuthToken = {
           refresh_token: user.refresh_token,
         };
         try {
-          const newAccessToken: AuthToken = await refresh(data);
+          const newAccessToken: IAuthToken = await refresh(data);
           prevRequest.headers[
             "Authorization"
           ] = `Bearer ${newAccessToken.token}`;

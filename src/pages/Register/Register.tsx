@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { RegisterFormData } from "../../shared/types";
+import { IRegisterFormData } from "../../shared/types";
 import { register, reset } from "../../features/auth/authSlice";
 import { RootState, AppDispatch } from "../../app/store";
 import {
@@ -47,8 +47,8 @@ const validationSchema = yup.object().shape({
 
 const Register = () => {
   const onSubmit = async (
-    values: RegisterFormData,
-    actions: FormikHelpers<RegisterFormData>
+    values: IRegisterFormData,
+    actions: FormikHelpers<IRegisterFormData>
   ) => {
     const userData = {
       email: values.email,

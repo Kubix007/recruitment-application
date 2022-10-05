@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { LoginFormData } from "../../shared/types";
+import { ILoginFormData } from "../../shared/types";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -37,8 +37,8 @@ const validationSchema = yup.object().shape({
 
 const Login = () => {
   const onSubmit = async (
-    values: LoginFormData,
-    actions: FormikHelpers<LoginFormData>
+    values: ILoginFormData,
+    actions: FormikHelpers<ILoginFormData>
   ) => {
     const userData = {
       username: values.username,

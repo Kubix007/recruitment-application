@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import Spinner from "../../components/Spinner";
-import { getUsers, reset } from "../../features/users/userSlice";
+import { getUsers } from "../../features/users/userSlice";
+import Table from "../../components/Table/Table";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const Dashboard = () => {
     }
 
     dispatch(getUsers());
-
     // return () => {
     //   dispatch(reset());
     // };
@@ -32,7 +32,11 @@ const Dashboard = () => {
   if (isLoading) {
     return <Spinner />;
   }
-  return <div>Dashboard</div>;
+  return (
+    <div>
+      <Table data={users} />
+    </div>
+  );
 };
 
 export default Dashboard;

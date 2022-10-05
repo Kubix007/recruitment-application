@@ -34,3 +34,9 @@ body {
   src: local("FiraSans-Bold"),
     url(./fonts/fira-sans/FiraSans-Bold.otf) format("opentype");
 }
+
+@font-face {
+  font-family: "FiraSans-SemiBold";
+  src: local("FiraSans-SemiBold"),
+    url(./fonts/fira-sans/FiraSans-SemiBold.otf) format("opentype");
+}

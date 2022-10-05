@@ -8,14 +8,14 @@ const getUsers = async (token: string) => {
       Authorization: `Bearer ${token}`,
     },
     params: {
-      page: 5,
-      perPage: 50,
+      page: 2,
+      perPage: 5,
     },
   };
 
   const response = await axios.get(API_URL + "auth/users", config);
 
-  return response.data;
+  return response.data.data;
 };
 
 const userService = {

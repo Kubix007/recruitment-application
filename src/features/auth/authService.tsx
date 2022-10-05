@@ -1,11 +1,11 @@
 import axios from "axios";
-import { LoginFormData, RegisterUserData } from "../../shared/types";
+import { ILoginFormData, IRegisterUserData } from "../../shared/types";
 
 //const API_URL = "/api/v1/";
 const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
 
 //Register user
-const register = async (userData: RegisterUserData) => {
+const register = async (userData: IRegisterUserData) => {
   const response = await axios.post(API_URL + "register", userData);
 
   if (response.data) {
@@ -16,7 +16,7 @@ const register = async (userData: RegisterUserData) => {
 };
 
 //Login user
-const login = async (userData: LoginFormData) => {
+const login = async (userData: ILoginFormData) => {
   const response = await axios.post(API_URL + "login/check", userData);
 
   if (response.data) {
