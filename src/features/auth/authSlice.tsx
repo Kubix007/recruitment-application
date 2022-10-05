@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-import {
-  LoginFormData,
-  RegisterFormData,
-  RegisterUserData,
-} from "../../shared/types";
+import { LoginFormData, RegisterUserData } from "../../shared/types";
 
 //Get user from local storage
 const user = JSON.parse(localStorage.getItem("user")!);
@@ -53,6 +49,19 @@ export const login = createAsyncThunk(
   }
 );
 
+export const refresh = async (refreshToken: any) => {
+  try {
+    return await authService.refreshToken(refreshToken);
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    console.log("BLAD", error);
+    return message;
+  }
+};
+
 //Logout
 export const logout = createAsyncThunk("auth/logout", () => {
   authService.logout();
@@ -68,6 +77,11 @@ export const authSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
       state.message = "";
+    },
+    refreshToken: (state, action) => {
+      const { token, refresh_token } = action.payload;
+      state.user.token = token;
+      state.user.refresh_token = refresh_token;
     },
   },
   //Account state - pendning, fullfiled, rejected
@@ -107,5 +121,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, refreshToken } = authSlice.actions;
 export default authSlice.reducer;

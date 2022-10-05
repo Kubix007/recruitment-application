@@ -13,3 +13,8 @@ export interface RegisterUserData {
   email: string;
   plainPassword: string;
 }
+
+export interface AuthToken {
+  token?: string;
+  refresh_token: string;
+}

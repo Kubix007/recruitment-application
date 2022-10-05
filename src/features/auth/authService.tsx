@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-  LoginFormData,
-  RegisterFormData,
-  RegisterUserData,
-} from "../../shared/types";
+import { LoginFormData, RegisterUserData } from "../../shared/types";
 
 //const API_URL = "/api/v1/";
 const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
@@ -35,10 +31,20 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+//Refresh token
+const refreshToken = async (refreshToken: any) => {
+  const response = await axios.post(
+    API_URL + "auth/token/refresh",
+    refreshToken
+  );
+  return response.data;
+};
+
 const authService = {
   register,
   logout,
   login,
+  refreshToken,
 };
 
 export default authService;

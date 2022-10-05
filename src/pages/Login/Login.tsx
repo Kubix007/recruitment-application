@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { LoginFormData } from "../../shared/types";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
