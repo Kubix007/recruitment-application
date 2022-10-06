@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { IUserDetails } from "../../shared/types";
 import userService from "./userService";
 
 const initialState = {
@@ -29,6 +30,25 @@ export const getUsers = createAsyncThunk(
   }
 );
 
+//Patch user
+export const patchUser = createAsyncThunk(
+  "/user/patch",
+  async (userData: IUserDetails, thunkAPI) => {
+    try {
+      const token = (thunkAPI.getState() as RootState).auth.user.token;
+      return await userService.patchUser(token, userData);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -46,6 +66,19 @@ export const userSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(getUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+      })
+      .addCase(patchUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(patchUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload as string;
+      })
+      .addCase(patchUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;

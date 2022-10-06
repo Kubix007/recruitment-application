@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import Toolbar from "../Toolbar";
-import { TableProps } from "./types";
 import { IFetchedUsers } from "../../shared/types";
 import { EditAccountButton, ButtonContainer } from "./Table.style";
+import { TableProps } from "./types";
 import {
   ResponsiveTable,
   TableHeader,

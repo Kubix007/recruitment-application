@@ -27,3 +27,15 @@ export interface IFetchedUsers {
   birth_date: string;
   is_activated: boolean;
 }
+
+export interface IUserDetails {
+  email: string;
+  name: string;
+  surname: string;
+  birthDate: string;
+  phonePrefix: string;
+  phoneNumber: string;
+  privacyPolicy: boolean;
+  marketingAgreements: boolean;
+  sellingRegulation: boolean;
+}

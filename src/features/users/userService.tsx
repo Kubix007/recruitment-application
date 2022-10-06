@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IUserDetails } from "../../shared/types";
 
 const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
 
@@ -8,7 +9,7 @@ const getUsers = async (token: string) => {
       Authorization: `Bearer ${token}`,
     },
     params: {
-      page: 2,
+      page: 11,
       perPage: 5,
     },
   };
@@ -18,8 +19,19 @@ const getUsers = async (token: string) => {
   return response.data.data;
 };
 
+const patchUser = async (token: string, userData: IUserDetails) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.patch(API_URL + "auth/user", userData, config);
+  return response.data;
+};
+
 const userService = {
   getUsers,
+  patchUser,
 };
 
 export default userService;

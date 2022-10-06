@@ -53,7 +53,6 @@ const Login = () => {
       username: values.username,
       password: values.password,
     };
-    console.log("xd");
     dispatch(login(userData));
   };
 

@@ -10,8 +10,8 @@ export const ModalBackground = styled.div`
   align-items: center;
 `;
 export const ModalContainer = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 60%;
+  height: 60%;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -23,15 +23,41 @@ export const ModalContainer = styled.div`
     display: inline-block;
     text-align: center;
     margin-top: 10px;
+    border-bottom: 0.5px solid #808080;
+    font-size: 15.43px;
+    font-family: FiraSans-Light;
+    text-align: left;
   }
 
   & > .body {
-    flex: 50%;
     display: flex;
-    justify-content: center;
+    height: 100%;
+    width: 100%;
     align-items: center;
-    font-size: 1.7rem;
-    text-align: center;
+    justify-content: space-evenly;
+    gap: 20%;
+    @media all and (max-width: 1100px) {
+      & > .table-header {
+        display: none;
+      }
+      & > li {
+        display: block;
+      }
+      & > .col {
+        flex-basis: 100%;
+      }
+      & > .col {
+        display: flex;
+        padding: 10px 0;
+      }
+      & > .col:before {
+        color: #6c7a89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+      }
+    }
   }
 
   & > .footer {
@@ -39,18 +65,7 @@ export const ModalContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    & > .footerButtonConfirm {
-      width: 150px;
-      height: 45px;
-      margin: 10px;
-      border: none;
-      background-color: cornflowerblue;
-      color: white;
-      border-radius: 8px;
-      font-size: 20px;
-      cursor: pointer;
-    }
+    text-align: center;
   }
 `;
 export const TitleCloseContainer = styled.div`
@@ -60,5 +75,39 @@ export const TitleCloseContainer = styled.div`
   & > .titleCloseButton {
     display: flex;
     justify-content: flex-end;
+  }
+`;
+
+export const ModalButtonConfirm = styled.button`
+  border: 1px solid #24399b;
+  border-radius: 12px;
+  opacity: 1;
+  font-family: FiraSans-SemiBold;
+  background-color: #24399b;
+  color: white;
+  margin: 1rem 1rem;
+  padding: 10px;
+  width: 20%;
+  font-size: 1rem;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+`;
+
+export const ModalButtonCancel = styled.button`
+  border: 1px solid #24399b;
+  border-radius: 12px;
+  opacity: 1;
+  font-family: FiraSans-SemiBold;
+  background-color: white;
+  color: black;
+  margin: 1rem 1rem;
+  padding: 10px;
+  width: 20%;
+  font-size: 1rem;
+  &:hover {
+    background-color: white;
+    color: black;
   }
 `;
