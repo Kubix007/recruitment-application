@@ -10,8 +10,8 @@ export const ModalBackground = styled.div`
   align-items: center;
 `;
 export const ModalContainer = styled.div`
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

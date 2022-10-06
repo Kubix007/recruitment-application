@@ -15,7 +15,7 @@ export const ResponsiveTable = styled.ul`
     flex-basis: 25%;
   }
   & > .col-5 {
-    flex-basis: 30%;
+    flex-basis: 20%;
   }
 
   & > .table-row {
@@ -89,7 +89,7 @@ export const TableColumn4 = styled.div`
   flex-basis: 25%;
 `;
 export const TableColumn5 = styled.div`
-  flex-basis: 25%;
+  flex-basis: 20%;
 `;
 
 export const ButtonContainer = styled.div`
