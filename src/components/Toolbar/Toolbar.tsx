@@ -19,16 +19,13 @@ const Toolbar: React.FC<Props> = ({ setUsers, data }) => {
     if ((event.target as HTMLInputElement).value === "") {
       setUsers(users);
     }
-    const matchedUsers = data.filter((user: any) => {
+    const matchedUsers = data.filter((user: IFetchedUsers) => {
       return `${user.name} ${user.surname}`
         .toLowerCase()
         .includes((event.target as HTMLInputElement).value.toLowerCase());
     });
     setSearchPhrase((event.target as HTMLInputElement).value);
     setTemp(matchedUsers);
-  };
-  const handleClick = () => {
-    setUsers(temp);
   };
 
   return (
@@ -41,7 +38,9 @@ const Toolbar: React.FC<Props> = ({ setUsers, data }) => {
           onChange={search}
         />
       </ToolbarSearchContainer>
-      <ToolbarSearchButton onClick={handleClick}>Szukaj</ToolbarSearchButton>
+      <ToolbarSearchButton onClick={() => setUsers(temp)}>
+        Szukaj
+      </ToolbarSearchButton>
     </ToolbarContainer>
   );
 };

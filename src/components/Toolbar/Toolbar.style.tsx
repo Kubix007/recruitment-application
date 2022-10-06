@@ -6,14 +6,12 @@ export const ToolbarContainer = styled.div`
 `;
 
 export const ToolbarSearchButton = styled.button`
-  transform: matrix(1, 0, 0, 1, 0, 0);
   border: 1px solid #24399b;
   border-radius: 12px;
   opacity: 1;
   font-family: FiraSans-SemiBold;
   background-color: #24399b;
   color: white;
-  width: 12%;
   height: 10%;
   margin: 1rem 1rem;
   padding: 10px;

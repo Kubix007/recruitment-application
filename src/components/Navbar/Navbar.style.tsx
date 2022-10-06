@@ -33,7 +33,6 @@ export const NavbarLink = styled(Link)`
 `;
 
 export const NavbarButton = styled.button`
-  transform: matrix(1, 0, 0, 1, 0, 0);
   border: 1px solid #24399b;
   border-radius: 7px;
   opacity: 1;

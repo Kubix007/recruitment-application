@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
@@ -13,10 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./app/store";
 import { logout } from "./features/auth/authSlice";
 import { IAuthToken } from "./shared/types";
+import Modal from "./components/Modal";
 
 function App() {
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch: AppDispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   axios.interceptors.response.use(
     (response: AxiosResponse) => response,
@@ -48,11 +50,15 @@ function App() {
 
   return (
     <>
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
       <Router>
         <Styles.Container>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Dashboard />}></Route>
+            <Route
+              path="/"
+              element={<Dashboard setIsOpen={setIsOpen} />}
+            ></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
           </Routes>

@@ -1,13 +1,26 @@
 import { useState } from "react";
-import "./Table.css";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import Toolbar from "../Toolbar";
-import { Props } from "./types";
+import { TableProps } from "./types";
 import { IFetchedUsers } from "../../shared/types";
+import { EditAccountButton, ButtonContainer } from "./Table.style";
+import {
+  ResponsiveTable,
+  TableHeader,
+  TableRow,
+  TableColumn1,
+  TableColumn2,
+  TableColumn3,
+  TableColumn4,
+  TableColumn5,
+} from "./Table.style";
 
-function Table(data: Props) {
-  const [users, setUsers] = useState(data.data);
-  const [sorted, setSorted] = useState({ sorted: "id", reversed: false });
+const Table: React.FC<TableProps> = ({ data, setIsOpen }) => {
+  const [users, setUsers] = useState<IFetchedUsers[]>(data);
+  const [sorted, setSorted] = useState<{ sorted: string; reversed: boolean }>({
+    sorted: "id",
+    reversed: false,
+  });
 
   const sortById = () => {
     const usersCopy = [...users];
@@ -23,7 +36,7 @@ function Table(data: Props) {
 
   const sortByBirthDate = () => {
     let usersCopy = [...users];
-    usersCopy.sort((userA: IFetchedUsers, userB) => {
+    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
       if (sorted.reversed) {
         return userA.birth_date
           ? new Date(userA.birth_date).getTime() -
@@ -41,7 +54,7 @@ function Table(data: Props) {
 
   const sortByEmail = () => {
     let usersCopy = [...users];
-    usersCopy.sort((userA, userB) => {
+    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
       if (sorted.reversed) {
         return userB.email ? userB.email.localeCompare(userA.email) : 1;
       }
@@ -53,7 +66,7 @@ function Table(data: Props) {
 
   const sortByName = () => {
     let usersCopy = [...users];
-    usersCopy.sort((userA, userB) => {
+    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
       if (sorted.reversed) {
         return userB.name ? userB.name.localeCompare(userA.name) : 1;
       }
@@ -65,7 +78,7 @@ function Table(data: Props) {
 
   const sortBySurname = () => {
     let usersCopy = [...users];
-    usersCopy.sort((userA, userB) => {
+    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
       if (sorted.reversed) {
         return userB.surname ? userB.surname.localeCompare(userA.surname) : 1;
       }
@@ -78,23 +91,23 @@ function Table(data: Props) {
   const render = () => {
     return users.map((user) => {
       return (
-        <li className="table-row">
-          <div className="col col-1" data-label="Id">
+        <TableRow key={user.id}>
+          <TableColumn1 className="col-1" data-label="Id">
             {user.id}
-          </div>
-          <div className="col col-2" data-label="Imię">
+          </TableColumn1>
+          <TableColumn2 className="col-2" data-label="Imię">
             {user.name}
-          </div>
-          <div className="col col-3" data-label="Nazwisko">
+          </TableColumn2>
+          <TableColumn3 className="col-3" data-label="Nazwisko">
             {user.surname}
-          </div>
-          <div className="col col-4" data-label="Email">
+          </TableColumn3>
+          <TableColumn4 className="col-4" data-label="Email">
             {user.email}
-          </div>
-          <div className="col col-5" data-label="Data">
+          </TableColumn4>
+          <TableColumn5 className="col-5" data-label="Data">
             {user.birth_date}
-          </div>
-        </li>
+          </TableColumn5>
+        </TableRow>
       );
     });
   };
@@ -108,34 +121,39 @@ function Table(data: Props) {
 
   return (
     <>
-      <Toolbar setUsers={setUsers} data={users} dataCopy={[...users]} />
-      <ul className="responsive-table">
-        <li className="table-header">
-          <div onClick={sortById} className="col col-1">
+      <Toolbar setUsers={setUsers} data={users} />
+      <ButtonContainer>
+        <EditAccountButton onClick={() => setIsOpen(true)}>
+          Edytuj swoje konto
+        </EditAccountButton>
+      </ButtonContainer>
+      <ResponsiveTable>
+        <TableHeader className="table-header">
+          <TableColumn1 onClick={sortById} className="col-1">
             Id
             {renderArrow()}
-          </div>
-          <div onClick={sortByName} className="col col-2">
+          </TableColumn1>
+          <TableColumn2 onClick={sortByName} className="col-2">
             Imię
             {renderArrow()}
-          </div>
-          <div onClick={sortBySurname} className="col col-3">
+          </TableColumn2>
+          <TableColumn3 onClick={sortBySurname} className="col-3">
             Nazwisko
             {renderArrow()}
-          </div>
-          <div onClick={sortByEmail} className="col col-4">
+          </TableColumn3>
+          <TableColumn4 onClick={sortByEmail} className="col-4">
             Email
             {renderArrow()}
-          </div>
-          <div onClick={sortByBirthDate} className="col col-5">
+          </TableColumn4>
+          <TableColumn5 onClick={sortByBirthDate} className="col-5">
             Data
             {renderArrow()}
-          </div>
-        </li>
+          </TableColumn5>
+        </TableHeader>
         {render()}
-      </ul>
+      </ResponsiveTable>
     </>
   );
-}
+};
 
 export default Table;

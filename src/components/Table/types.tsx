@@ -1,5 +1,7 @@
+import { Dispatch, SetStateAction } from "react";
 import { IFetchedUsers } from "../../shared/types";
 
-export interface Props {
+export interface TableProps {
   data: IFetchedUsers[];
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
