@@ -5,6 +5,7 @@ import {
   TitleCloseContainer,
   ModalButtonConfirm,
   ModalButtonCancel,
+  ModelButtonsContainer,
 } from "./Modal.style";
 import { ReactComponent as Button } from "../../img/Button.svg";
 import ModalForm from "../ModalForm";
@@ -123,16 +124,19 @@ const Modal = ({ setIsOpen }: ModalProps) => {
           <ModalForm props={props} />
         </div>
         <div className="footer">
-          <ModalButtonCancel onClick={() => setIsOpen(false)}>
-            Anuluj
-          </ModalButtonCancel>
-          <ModalButtonConfirm
-            disabled={!(isValid && dirty)}
-            onClick={handleClick}
-            type="submit"
-          >
-            Zapisz
-          </ModalButtonConfirm>
+          <p>*Pola obowiązkowe</p>
+          <ModelButtonsContainer>
+            <ModalButtonCancel onClick={() => setIsOpen(false)}>
+              Anuluj
+            </ModalButtonCancel>
+            <ModalButtonConfirm
+              disabled={!(isValid && dirty)}
+              onClick={handleClick}
+              type="submit"
+            >
+              Zapisz
+            </ModalButtonConfirm>
+          </ModelButtonsContainer>
         </div>
       </ModalContainer>
     </ModalBackground>

@@ -36,34 +36,12 @@ export const ModalContainer = styled.div`
     align-items: center;
     justify-content: space-evenly;
     gap: 20%;
-    @media all and (max-width: 1100px) {
-      & > .table-header {
-        display: none;
-      }
-      & > li {
-        display: block;
-      }
-      & > .col {
-        flex-basis: 100%;
-      }
-      & > .col {
-        display: flex;
-        padding: 10px 0;
-      }
-      & > .col:before {
-        color: #6c7a89;
-        padding-right: 10px;
-        content: attr(data-label);
-        flex-basis: 50%;
-        text-align: right;
-      }
-    }
   }
 
   & > .footer {
     flex: 20%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
   }
@@ -85,9 +63,9 @@ export const ModalButtonConfirm = styled.button`
   font-family: FiraSans-SemiBold;
   background-color: #24399b;
   color: white;
+  width: 123px;
   margin: 1rem 1rem;
   padding: 10px;
-  width: 20%;
   font-size: 1rem;
   &:hover {
     background-color: white;
@@ -98,16 +76,19 @@ export const ModalButtonConfirm = styled.button`
 export const ModalButtonCancel = styled.button`
   border: 1px solid #24399b;
   border-radius: 12px;
-  opacity: 1;
   font-family: FiraSans-SemiBold;
   background-color: white;
   color: black;
-  margin: 1rem 1rem;
   padding: 10px;
-  width: 20%;
+  width: 123px;
+  margin: 1rem 1rem;
   font-size: 1rem;
   &:hover {
     background-color: white;
     color: black;
   }
+`;
+
+export const ModelButtonsContainer = styled.div`
+  display: flex;
 `;

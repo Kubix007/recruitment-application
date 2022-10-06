@@ -42,23 +42,12 @@ export const ModelFormPhoneWrapper = styled.div`
 `;
 
 export const ModalFormInputWrapper = styled.div`
-  .datePicker {
-    & > .react-datepicker__input-container {
-      font-family: FiraSans-Light;
-      font-size: 25px;
-      width: 100%;
-      border: 0px;
-      &:focus {
-        outline: none;
-        border-bottom: 2px solid black;
-      }
-    }
-  }
-  & > .pickerData {
+  input#birthDate {
     font-family: FiraSans-Light;
     font-size: 25px;
     width: 100%;
     border: 0px;
+    border-bottom: 1px solid grey;
     &:focus {
       outline: none;
       border-bottom: 2px solid black;

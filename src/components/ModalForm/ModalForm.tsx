@@ -88,7 +88,7 @@ const ModalForm = ({ props }: any) => {
           <ModalFormInputWrapper>
             <DatePicker
               selected={props.values.birthDate}
-              dateFormat="MM dd, yyyy"
+              dateFormat="dd-MM-yyyy"
               id="birthDate"
               name="birthDate"
               onChange={(date) => props.setFieldValue("birthDate", date)}

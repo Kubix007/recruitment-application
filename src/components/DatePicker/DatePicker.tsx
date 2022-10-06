@@ -3,7 +3,7 @@ import Datepicker from "react-datepicker";
 const DatePickerField: React.FC<any> = ({ field, form, ...props }) => (
   <div>
     <Datepicker
-      dateFormat="dd/MM/yyyy"
+      dateFormat="dd-MM-yyyy"
       {...field}
       selected={field.value}
       wrapperClassName="pickerData"
