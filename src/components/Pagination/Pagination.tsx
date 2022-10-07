@@ -11,8 +11,12 @@ import {
 } from "./Pagination.style";
 import ReactPaginate from "react-paginate";
 import { AppDispatch, RootState } from "../../app/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../features/users/userSlice";
+import {
+  changePerPage,
+  changePage,
+} from "../../features/pagination/paginationSlice";
 import { IPageSettings } from "../../shared/types";
 
 const perPageNumbers = [
@@ -41,12 +45,15 @@ const perPageNumbers = [
 const Pagination = ({
   usersPerPage,
   setUsersPerPage,
+  pageNumber,
+  setPageNumber,
   totalUsers,
   data,
 }: any) => {
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+  const { pagination } = useSelector((state: RootState) => state.pagination);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -68,37 +75,62 @@ const Pagination = ({
       "Na stronie:",
       usersPerPage
     );
-    dispatch(getUsers(pageSettings));
-    console.log(pageCount);
+    //dispatch(getUsers(pageSettings));
   };
 
-  const handleChange = (e: any) => {
+  const handleChangePage = (e: any) => {
     const pageSettings: IPageSettings = {
       page: e.target.value,
       perPage: usersPerPage,
     };
-    dispatch(getUsers(pageSettings));
+    console.log(pageSettings);
+    setPageNumber(e.target.value);
+    dispatch(changePage(e.target.value * 1));
+  };
+
+  const handleChangePerPage = (e: any) => {
+    const pageSettings: IPageSettings = {
+      page: pageNumber,
+      perPage: e.target.value,
+    };
+    console.log(pageSettings);
+    setUsersPerPage(e.target.value);
+    dispatch(changePerPage(e.target.value * 1));
   };
 
   return (
     <PaginationContainer>
-      <PaginationLabelInfo htmlFor="">W trakie rozbudowy</PaginationLabelInfo>
+      <PaginationLabelInfo>W trakie rozbudowy</PaginationLabelInfo>
       <div>
         <PaginationLabel htmlFor="perPage">Na stronie:</PaginationLabel>
         <PaginationSelect
           name="perPage"
           id="perPage"
-          onChange={(e) => setUsersPerPage(e.target.value)}
+          onChange={handleChangePerPage}
         >
-          {perPageNumbers.map((option) => (
-            <option value={option.value}>{option.label}</option>
-          ))}
+          {perPageNumbers.map((option) => {
+            if (option.value === pagination.perPage) {
+              return (
+                <option selected={true} value={option.value}>
+                  {option.label}
+                </option>
+              );
+            }
+            return <option value={option.value}>{option.label}</option>;
+          })}
         </PaginationSelect>
-        <PaginationLabel htmlFor="perPage">Strona:</PaginationLabel>
-        <PaginationSelect name="perPage" id="perPage" onChange={handleChange}>
-          {perPageNumbers.map((option) => (
-            <option value={option.value}>{option.label}</option>
-          ))}
+        <PaginationLabel htmlFor="page">Strona:</PaginationLabel>
+        <PaginationSelect name="page" id="page" onChange={handleChangePage}>
+          {perPageNumbers.map((option) => {
+            if (option.value === pagination.page) {
+              return (
+                <option selected={true} value={option.value}>
+                  {option.label}
+                </option>
+              );
+            }
+            return <option value={option.value}>{option.label}</option>;
+          })}
         </PaginationSelect>
       </div>
       <ReactPaginate

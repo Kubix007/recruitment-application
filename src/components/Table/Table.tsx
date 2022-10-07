@@ -15,10 +15,15 @@ import {
   TableColumn5,
 } from "./Table.style";
 import Pagination from "../Pagination/Pagination";
+import { RootState } from "../../app/store";
+import { useSelector } from "react-redux";
 
 const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   const [users, setUsers] = useState<IFetchedUsers[]>(data);
-  const [usersPerPage, setUsersPerPage] = useState(1);
+  const { pagination } = useSelector((state: RootState) => state.pagination);
+
+  const [usersPerPage, setUsersPerPage] = useState(pagination.perPage);
+  const [pageNumber, setPageNumber] = useState(pagination.page);
 
   const [sorted, setSorted] = useState<{ sorted: string; reversed: boolean }>({
     sorted: "id",
@@ -157,6 +162,8 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
       </ResponsiveTable>
       <Pagination
         usersPerPage={usersPerPage}
+        pageNumber={pageNumber}
+        setPageNumber={setPageNumber}
         setUsersPerPage={setUsersPerPage}
         totalUsers={totalUsers}
         data={users}

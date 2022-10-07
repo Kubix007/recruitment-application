@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
@@ -6,12 +6,6 @@ import Spinner from "../../components/Spinner";
 import { getUsers } from "../../features/users/userSlice";
 import Table from "../../components/Table/Table";
 import { DashboardProps } from "./types";
-import { IPageSettings } from "../../shared/types";
-
-const pageSettings: IPageSettings = {
-  page: 1,
-  perPage: 1,
-};
 
 const Dashboard: React.FC<DashboardProps> = ({ setIsOpen }) => {
   const navigate = useNavigate();
@@ -19,13 +13,14 @@ const Dashboard: React.FC<DashboardProps> = ({ setIsOpen }) => {
 
   const { user } = useSelector((state: RootState) => state.auth);
   const { users, isLoading } = useSelector((state: RootState) => state.users);
+  const { pagination } = useSelector((state: RootState) => state.pagination);
 
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
-    dispatch(getUsers(pageSettings));
-  }, [user, navigate, dispatch]);
+    dispatch(getUsers(pagination));
+  }, [user, navigate, dispatch, pagination]);
 
   if (isLoading) {
     return <Spinner />;
