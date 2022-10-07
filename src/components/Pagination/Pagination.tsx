@@ -1,46 +1,18 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import {
-  StyledUl,
-  StyledLi,
-  StyledAnchor,
   PaginationContainer,
   PaginationLabel,
   PaginationSelect,
   PaginationLabelInfo,
 } from "./Pagination.style";
-import ReactPaginate from "react-paginate";
 import { AppDispatch, RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../features/users/userSlice";
 import {
   changePerPage,
   changePage,
 } from "../../features/pagination/paginationSlice";
 import { IPageSettings } from "../../shared/types";
-
-const perPageNumbers = [
-  {
-    label: "1",
-    value: 1,
-  },
-  {
-    label: "2",
-    value: 2,
-  },
-  {
-    label: "3",
-    value: 3,
-  },
-  {
-    label: "4",
-    value: 4,
-  },
-  {
-    label: "5",
-    value: 5,
-  },
-];
 
 const Pagination = ({
   usersPerPage,
@@ -50,7 +22,7 @@ const Pagination = ({
   totalUsers,
   data,
 }: any) => {
-  const [pageCount, setPageCount] = useState(0);
+  const [pageCount, setPageCount] = useState<number>(0);
   const { pagination } = useSelector((state: RootState) => state.pagination);
   const dispatch: AppDispatch = useDispatch();
 
@@ -78,9 +50,14 @@ const Pagination = ({
     dispatch(changePerPage(e.target.value * 1));
   };
 
-  let totalPages: number[] = [];
-  for (let i = 1; i <= pageCount; i++) {
-    totalPages.push(i);
+  let pagesNumber: number[] = [];
+  for (let i: number = 1; i <= pageCount; i++) {
+    pagesNumber.push(i);
+  }
+
+  let perPageNumber: number[] = [];
+  for (let i: number = 1; i <= 5; i++) {
+    perPageNumber.push(i);
   }
 
   return (
@@ -93,20 +70,20 @@ const Pagination = ({
           id="perPage"
           onChange={handleChangePerPage}
         >
-          {perPageNumbers.map((option) => {
-            if (option.value === pagination.perPage) {
+          {perPageNumber.map((option) => {
+            if (option === pagination.perPage) {
               return (
-                <option selected={true} value={option.value}>
-                  {option.label}
+                <option selected={true} value={option}>
+                  {option}
                 </option>
               );
             }
-            return <option value={option.value}>{option.label}</option>;
+            return <option value={option}>{option}</option>;
           })}
         </PaginationSelect>
         <PaginationLabel htmlFor="page">Strona:</PaginationLabel>
         <PaginationSelect name="page" id="page" onChange={handleChangePage}>
-          {totalPages.map((option) => {
+          {pagesNumber.map((option) => {
             if (option * 1 === pagination.page) {
               return (
                 <option selected={true} value={option}>
