@@ -50,33 +50,13 @@ const Pagination = ({
   totalUsers,
   data,
 }: any) => {
-  const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
   const { pagination } = useSelector((state: RootState) => state.pagination);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    const endOffset = itemOffset + usersPerPage;
-    setCurrentItems(data.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(totalUsers / usersPerPage));
-  }, [itemOffset, usersPerPage, data, totalUsers]);
-
-  const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * usersPerPage) % totalUsers;
-    setItemOffset(newOffset);
-    const pageSettings: IPageSettings = {
-      page: event.selected + 1,
-      perPage: usersPerPage,
-    };
-    console.log(
-      "Numer strony:",
-      event.selected + 1,
-      "Na stronie:",
-      usersPerPage
-    );
-    //dispatch(getUsers(pageSettings));
-  };
+  }, [usersPerPage, data, totalUsers]);
 
   const handleChangePage = (e: any) => {
     const pageSettings: IPageSettings = {
@@ -97,6 +77,11 @@ const Pagination = ({
     setUsersPerPage(e.target.value);
     dispatch(changePerPage(e.target.value * 1));
   };
+
+  let totalPages: number[] = [];
+  for (let i = 1; i <= pageCount; i++) {
+    totalPages.push(i);
+  }
 
   return (
     <PaginationContainer>
@@ -121,31 +106,18 @@ const Pagination = ({
         </PaginationSelect>
         <PaginationLabel htmlFor="page">Strona:</PaginationLabel>
         <PaginationSelect name="page" id="page" onChange={handleChangePage}>
-          {perPageNumbers.map((option) => {
-            if (option.value === pagination.page) {
+          {totalPages.map((option) => {
+            if (option * 1 === pagination.page) {
               return (
-                <option selected={true} value={option.value}>
-                  {option.label}
+                <option selected={true} value={option}>
+                  {option}
                 </option>
               );
             }
-            return <option value={option.value}>{option.label}</option>;
+            return <option value={option}>{option}</option>;
           })}
         </PaginationSelect>
       </div>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel=" >>"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={2}
-        pageCount={pageCount}
-        previousLabel="<<"
-        containerClassName="pagination"
-        pageLinkClassName="pageNumber"
-        previousLinkClassName="pageNumber"
-        nextClassName="nextpage"
-        activeLinkClassName="active"
-      />
     </PaginationContainer>
   );
 };
