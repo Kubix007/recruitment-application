@@ -3,10 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import Spinner from "../../components/Spinner";
-import { getUsers, reset } from "../../features/users/userSlice";
+import { getUsers } from "../../features/users/userSlice";
 import Table from "../../components/Table/Table";
 import { DashboardProps } from "./types";
-import { toast } from "react-toastify";
+import { IPageSettings } from "../../shared/types";
+
+const pageSettings: IPageSettings = {
+  page: 1,
+  perPage: 1,
+};
 
 const Dashboard: React.FC<DashboardProps> = ({ setIsOpen }) => {
   const navigate = useNavigate();
@@ -19,7 +24,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setIsOpen }) => {
     if (!user) {
       navigate("/login");
     }
-    dispatch(getUsers());
+    dispatch(getUsers(pageSettings));
   }, [user, navigate, dispatch]);
 
   if (isLoading) {
@@ -27,7 +32,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setIsOpen }) => {
   }
   return (
     <>
-      <Table data={users} setIsOpen={setIsOpen} />
+      <Table data={users.data} totalUsers={users.total} setIsOpen={setIsOpen} />
     </>
   );
 };

@@ -39,3 +39,7 @@ export interface IUserDetails {
   marketingAgreements: boolean;
   sellingRegulation: boolean;
 }
+export interface IPageSettings {
+  page: number;
+  perPage: number;
+}

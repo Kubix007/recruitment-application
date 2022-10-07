@@ -14,9 +14,12 @@ import {
   TableColumn4,
   TableColumn5,
 } from "./Table.style";
+import Pagination from "../Pagination/Pagination";
 
-const Table: React.FC<TableProps> = ({ data, setIsOpen }) => {
+const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   const [users, setUsers] = useState<IFetchedUsers[]>(data);
+  const [usersPerPage, setUsersPerPage] = useState(1);
+
   const [sorted, setSorted] = useState<{ sorted: string; reversed: boolean }>({
     sorted: "id",
     reversed: false,
@@ -152,6 +155,12 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen }) => {
         </TableHeader>
         {render()}
       </ResponsiveTable>
+      <Pagination
+        usersPerPage={usersPerPage}
+        setUsersPerPage={setUsersPerPage}
+        totalUsers={totalUsers}
+        data={users}
+      />
     </>
   );
 };

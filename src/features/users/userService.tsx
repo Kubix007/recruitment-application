@@ -3,20 +3,20 @@ import { IUserDetails } from "../../shared/types";
 
 const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
 
-const getUsers = async (token: string) => {
+const getUsers = async (token: string, page: number, perPage: number) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
     params: {
-      page: 11,
-      perPage: 5,
+      page: page,
+      perPage: perPage,
     },
   };
 
   const response = await axios.get(API_URL + "auth/users", config);
 
-  return response.data.data;
+  return response.data;
 };
 
 const patchUser = async (token: string, userData: IUserDetails) => {

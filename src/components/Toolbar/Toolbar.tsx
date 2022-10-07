@@ -17,7 +17,7 @@ const Toolbar: React.FC<Props> = ({ setUsers, data }) => {
 
   const search = (event: ChangeEvent) => {
     if ((event.target as HTMLInputElement).value === "") {
-      setUsers(users);
+      setUsers(users.data);
     }
     const matchedUsers = data.filter((user: IFetchedUsers) => {
       return `${user.name} ${user.surname}`
