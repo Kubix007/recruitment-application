@@ -43,3 +43,8 @@ export interface IPageSettings {
   page: number;
   perPage: number;
 }
+
+export interface ISorted {
+  sorted: string;
+  reversed: boolean;
+}

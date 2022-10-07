@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import Toolbar from "../Toolbar";
-import { IFetchedUsers } from "../../shared/types";
+import { IFetchedUsers, ISorted } from "../../shared/types";
 import { EditAccountButton, ButtonContainer } from "./Table.style";
 import { TableProps } from "./types";
 import {
@@ -17,6 +17,7 @@ import {
 import Pagination from "../Pagination/Pagination";
 import { RootState } from "../../app/store";
 import { useSelector } from "react-redux";
+import tableFunctions from "./sortingFunctions/TableFunctions";
 
 const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   const [users, setUsers] = useState<IFetchedUsers[]>(data);
@@ -25,76 +26,10 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   const [usersPerPage, setUsersPerPage] = useState(pagination.perPage);
   const [pageNumber, setPageNumber] = useState(pagination.page);
 
-  const [sorted, setSorted] = useState<{ sorted: string; reversed: boolean }>({
+  const [sorted, setSorted] = useState<ISorted>({
     sorted: "id",
     reversed: false,
   });
-
-  const sortById = () => {
-    const usersCopy = [...users];
-    usersCopy.sort((userA, userB) => {
-      if (sorted.reversed) {
-        return userA.id - userB.id;
-      }
-      return userB.id - userA.id;
-    });
-    setUsers(usersCopy);
-    setSorted({ sorted: "id", reversed: !sorted.reversed });
-  };
-
-  const sortByBirthDate = () => {
-    let usersCopy = [...users];
-    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
-      if (sorted.reversed) {
-        return userA.birth_date
-          ? new Date(userA.birth_date).getTime() -
-              new Date(userB.birth_date).getTime()
-          : 1;
-      }
-      return userB.birth_date
-        ? new Date(userB.birth_date).getTime() -
-            new Date(userA.birth_date).getTime()
-        : -1;
-    });
-    setUsers(usersCopy);
-    setSorted({ sorted: "birth_date", reversed: !sorted.reversed });
-  };
-
-  const sortByEmail = () => {
-    let usersCopy = [...users];
-    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
-      if (sorted.reversed) {
-        return userB.email ? userB.email.localeCompare(userA.email) : 1;
-      }
-      return userA.email ? userA.email.localeCompare(userB.email) : -1;
-    });
-    setUsers(usersCopy);
-    setSorted({ sorted: "email", reversed: !sorted.reversed });
-  };
-
-  const sortByName = () => {
-    let usersCopy = [...users];
-    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
-      if (sorted.reversed) {
-        return userB.name ? userB.name.localeCompare(userA.name) : 1;
-      }
-      return userA.name ? userA.name.localeCompare(userB.name) : -1;
-    });
-    setUsers(usersCopy);
-    setSorted({ sorted: "name", reversed: !sorted.reversed });
-  };
-
-  const sortBySurname = () => {
-    let usersCopy = [...users];
-    usersCopy.sort((userA: IFetchedUsers, userB: IFetchedUsers) => {
-      if (sorted.reversed) {
-        return userB.surname ? userB.surname.localeCompare(userA.surname) : 1;
-      }
-      return userA.surname ? userA.surname.localeCompare(userB.surname) : -1;
-    });
-    setUsers(usersCopy);
-    setSorted({ sorted: "surname", reversed: !sorted.reversed });
-  };
 
   const render = () => {
     return users.map((user) => {
@@ -137,23 +72,48 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
       </ButtonContainer>
       <ResponsiveTable>
         <TableHeader className="table-header">
-          <TableColumn1 onClick={sortById} className="col-1">
+          <TableColumn1
+            onClick={() =>
+              tableFunctions.sortById(users, setUsers, setSorted, sorted)
+            }
+            className="col-1"
+          >
             Id
             {renderArrow()}
           </TableColumn1>
-          <TableColumn2 onClick={sortByName} className="col-2">
+          <TableColumn2
+            onClick={() =>
+              tableFunctions.sortByName(users, setUsers, setSorted, sorted)
+            }
+            className="col-2"
+          >
             Imię
             {renderArrow()}
           </TableColumn2>
-          <TableColumn3 onClick={sortBySurname} className="col-3">
+          <TableColumn3
+            onClick={() =>
+              tableFunctions.sortBySurname(users, setUsers, setSorted, sorted)
+            }
+            className="col-3"
+          >
             Nazwisko
             {renderArrow()}
           </TableColumn3>
-          <TableColumn4 onClick={sortByEmail} className="col-4">
+          <TableColumn4
+            onClick={() =>
+              tableFunctions.sortByEmail(users, setUsers, setSorted, sorted)
+            }
+            className="col-4"
+          >
             Email
             {renderArrow()}
           </TableColumn4>
-          <TableColumn5 onClick={sortByBirthDate} className="col-5">
+          <TableColumn5
+            onClick={() =>
+              tableFunctions.sortByBirthDate(users, setUsers, setSorted, sorted)
+            }
+            className="col-5"
+          >
             Data
             {renderArrow()}
           </TableColumn5>
