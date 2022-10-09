@@ -117,7 +117,7 @@ export const EditAccountButton = styled.button`
   background-color: white;
   color: black;
   height: 10%;
-  margin: 1rem 1rem;
+  margin: 1rem 0.5rem;
   padding: 10px;
   font-size: 1rem;
   &:hover {

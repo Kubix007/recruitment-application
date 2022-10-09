@@ -2,7 +2,6 @@ import DatePicker from "react-datepicker";
 
 import {
   ModalFormTextInput,
-  ModalFormSelectInput,
   ModalFormError,
   FirstModalFormGroup,
   SecondModalFormGroup,

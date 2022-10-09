@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { ISearchState, IUserDetails, IUsersState } from "../../shared/types";
 import userService from "./userService";
@@ -25,6 +25,7 @@ export const getUsers = createAsyncThunk(
         searchSettings.pagination.perPage,
         searchSettings.search,
         searchSettings.is_activated,
+        searchSettings.sort,
         token
       );
     } catch (error: any) {

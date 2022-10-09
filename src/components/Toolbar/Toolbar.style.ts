@@ -47,13 +47,13 @@ export const ToolbarFilterContainer = styled.div`
 export const ToolbarFilterButton = styled.button`
   border: 1px solid #24399b;
   border-radius: 12px;
-  opacity: 1;
   font-family: FiraSans-SemiBold;
   background-color: white;
   color: black;
   padding: 10px;
+  width: 120%;
   font-size: 1rem;
-  margin: 1rem 1rem;
+  margin: 1rem 0.5rem;
 
   &:hover {
     background-color: #24399b;

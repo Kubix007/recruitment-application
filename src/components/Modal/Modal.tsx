@@ -14,7 +14,7 @@ import { FormikHelpers, useFormik } from "formik";
 import { IUserDetails } from "../../shared/types";
 import { AppDispatch } from "../../app/store";
 import { useDispatch } from "react-redux";
-import { getUsers, patchUser } from "../../features/users/userSlice";
+import { patchUser } from "../../features/users/userSlice";
 
 const validationSchema = yup.object().shape({
   email: yup

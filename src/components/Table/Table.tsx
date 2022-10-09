@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import Toolbar from "../Toolbar";
-import { IFetchedUsers, ISorted } from "../../shared/types";
+import { IFetchedUsers, ISortState } from "../../shared/types";
 import { EditAccountButton, ButtonContainer } from "./Table.style";
 import { TableProps } from "./types";
-import { ReactComponent as Elipse } from "../../img/Ellipse.svg";
 import {
   ResponsiveTable,
   TableHeader,
@@ -16,22 +15,27 @@ import {
   TableColumn5,
 } from "./Table.style";
 import Pagination from "../Pagination/Pagination";
-import { RootState } from "../../app/store";
-import { useSelector } from "react-redux";
-import tableFunctions from "./sortingFunctions/TableFunctions";
+import { AppDispatch, RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
 import AvatarIcon from "../AvatarIcon";
+import { setSorting } from "../../features/search/searchSlice";
+
+let sortSettings: ISortState = {
+  reversed: false,
+  name: "",
+  surname: "",
+  birth_date: "",
+  email: "",
+};
 
 const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
-  const [users, setUsers] = useState<IFetchedUsers[]>(data);
+  const [users] = useState<IFetchedUsers[]>(data);
   const { pagination } = useSelector((state: RootState) => state.search);
+  const { sort } = useSelector((state: RootState) => state.search);
 
   const [usersPerPage, setUsersPerPage] = useState(pagination.perPage);
   const [pageNumber, setPageNumber] = useState(pagination.page);
-
-  const [sorted, setSorted] = useState<ISorted>({
-    sorted: "id",
-    reversed: false,
-  });
+  const dispatch: AppDispatch = useDispatch();
 
   const sliceAvatarText = (name: string, surname: string) => {
     if (name === null) {
@@ -41,6 +45,93 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
       surname = "";
     }
     return `${name.slice(0, 1)}${surname.slice(0, 1)}`;
+  };
+
+  const sortByBirthDate = () => {
+    if (sort.reversed) {
+      sortSettings = {
+        reversed: false,
+        name: sort.name,
+        surname: sort.surname,
+        birth_date: "desc",
+        email: sort.email,
+      };
+    } else {
+      sortSettings = {
+        reversed: true,
+        name: sort.name,
+        surname: sort.surname,
+        birth_date: "asc",
+        email: sort.email,
+      };
+    }
+    dispatch(setSorting(sortSettings));
+  };
+
+  const sortByEmail = () => {
+    if (sort.reversed) {
+      sortSettings = {
+        reversed: false,
+        name: sort.name,
+        surname: sort.surname,
+        birth_date: sort.birth_date,
+        email: "desc",
+      };
+    } else {
+      sortSettings = {
+        reversed: true,
+        name: sort.name,
+        surname: sort.surname,
+        birth_date: sort.birth_date,
+        email: "asc",
+      };
+    }
+
+    dispatch(setSorting(sortSettings));
+  };
+
+  const sortByName = () => {
+    if (sort.reversed) {
+      sortSettings = {
+        reversed: false,
+        name: "desc",
+        surname: sort.surname,
+        birth_date: sort.birth_date,
+        email: sort.email,
+      };
+    } else {
+      sortSettings = {
+        reversed: true,
+        name: "asc",
+        surname: sort.surname,
+        birth_date: sort.birth_date,
+        email: sort.email,
+      };
+    }
+
+    dispatch(setSorting(sortSettings));
+  };
+
+  const sortBySurname = () => {
+    if (sort.reversed) {
+      sortSettings = {
+        reversed: false,
+        name: sort.name,
+        surname: "desc",
+        birth_date: sort.birth_date,
+        email: sort.email,
+      };
+    } else {
+      sortSettings = {
+        reversed: true,
+        name: sort.name,
+        surname: "asc",
+        birth_date: sort.birth_date,
+        email: sort.email,
+      };
+    }
+
+    dispatch(setSorting(sortSettings));
   };
 
   const render = () => {
@@ -68,7 +159,7 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   };
 
   const renderArrow = () => {
-    if (sorted.reversed) {
+    if (sort.reversed) {
       return <FaArrowUp />;
     }
     return <FaArrowDown />;
@@ -85,39 +176,19 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
       <ResponsiveTable>
         <TableHeader className="table-header">
           <TableColumn1 className="col-1"></TableColumn1>
-          <TableColumn2
-            onClick={() =>
-              tableFunctions.sortByName(users, setUsers, setSorted, sorted)
-            }
-            className="col-2"
-          >
+          <TableColumn2 onClick={() => sortByName()} className="col-2">
             Imię
             {renderArrow()}
           </TableColumn2>
-          <TableColumn3
-            onClick={() =>
-              tableFunctions.sortBySurname(users, setUsers, setSorted, sorted)
-            }
-            className="col-3"
-          >
+          <TableColumn3 onClick={() => sortBySurname()} className="col-3">
             Nazwisko
             {renderArrow()}
           </TableColumn3>
-          <TableColumn4
-            onClick={() =>
-              tableFunctions.sortByEmail(users, setUsers, setSorted, sorted)
-            }
-            className="col-4"
-          >
+          <TableColumn4 onClick={() => sortByEmail()} className="col-4">
             Email
             {renderArrow()}
           </TableColumn4>
-          <TableColumn5
-            onClick={() =>
-              tableFunctions.sortByBirthDate(users, setUsers, setSorted, sorted)
-            }
-            className="col-5"
-          >
+          <TableColumn5 onClick={() => sortByBirthDate()} className="col-5">
             Data
             {renderArrow()}
           </TableColumn5>

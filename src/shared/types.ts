@@ -61,8 +61,23 @@ export interface ISearchState {
     page: number;
     perPage: number;
   };
+  sort: {
+    reversed: boolean;
+    name: string;
+    surname: string;
+    birth_date: string;
+    email: string;
+  };
   search: string;
   is_activated: string;
+}
+
+export interface ISortState {
+  reversed: boolean;
+  name: string;
+  surname: string;
+  birth_date: string;
+  email: string;
 }
 
 export interface IAuthState {

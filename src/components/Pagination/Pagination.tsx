@@ -32,6 +32,13 @@ const Pagination = ({
         page: e.target.value,
         perPage: usersPerPage,
       },
+      sort: {
+        reversed: searchSettings.sort.reversed,
+        name: searchSettings.sort.name,
+        surname: searchSettings.sort.surname,
+        birth_date: searchSettings.sort.birth_date,
+        email: searchSettings.sort.email,
+      },
       search: searchSettings.search,
       is_activated: searchSettings.is_activated,
     };
@@ -45,6 +52,13 @@ const Pagination = ({
       pagination: {
         page: pageNumber,
         perPage: e.target.value,
+      },
+      sort: {
+        reversed: searchSettings.sort.reversed,
+        name: searchSettings.sort.name,
+        surname: searchSettings.sort.surname,
+        birth_date: searchSettings.sort.birth_date,
+        email: searchSettings.sort.email,
       },
       search: searchSettings.search,
       is_activated: searchSettings.is_activated,
