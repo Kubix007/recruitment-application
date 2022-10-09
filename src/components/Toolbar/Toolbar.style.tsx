@@ -11,13 +11,13 @@ export const ToolbarSearchButton = styled.button`
   border-radius: 12px;
   opacity: 1;
   font-family: FiraSans-SemiBold;
-  background-color: #24399b;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 10px;
   font-size: 1rem;
   &:hover {
-    background-color: white;
-    color: black;
+    background-color: #24399b;
+    color: white;
   }
 `;
 
@@ -48,14 +48,18 @@ export const ToolbarFilterButton = styled.button`
   border-radius: 12px;
   opacity: 1;
   font-family: FiraSans-SemiBold;
-  background-color: #24399b;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 10px;
   font-size: 1rem;
   margin: 1rem 1rem;
 
   &:hover {
-    background-color: white;
-    color: black;
+    background-color: #24399b;
+    color: white;
   }
+
+  background-color: ${(props) =>
+    props["name"] === props["id"] ? "#24399b" : "white"};
+  color: ${(props) => (props["name"] === props["id"] ? "white" : "black")};
 `;

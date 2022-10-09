@@ -15,12 +15,12 @@ export const LoginButton = styled.button`
   opacity: 1;
   width: 100%;
   font-family: FiraSans-Book;
-  background-color: #24399b;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 5%;
   &:hover {
-    background-color: white;
-    color: black;
+    background-color: #24399b;
+    color: white;
   }
   font-size: 28.77px;
 `;

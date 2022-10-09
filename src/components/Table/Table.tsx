@@ -21,9 +21,7 @@ import tableFunctions from "./sortingFunctions/TableFunctions";
 
 const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   const [users, setUsers] = useState<IFetchedUsers[]>(data);
-  const { pagination, search } = useSelector(
-    (state: RootState) => state.search
-  );
+  const { pagination } = useSelector((state: RootState) => state.search);
 
   const [usersPerPage, setUsersPerPage] = useState(pagination.perPage);
   const [pageNumber, setPageNumber] = useState(pagination.page);

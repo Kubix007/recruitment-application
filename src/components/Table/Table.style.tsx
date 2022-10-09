@@ -102,14 +102,14 @@ export const EditAccountButton = styled.button`
   border-radius: 12px;
   opacity: 1;
   font-family: FiraSans-SemiBold;
-  background-color: #24399b;
-  color: white;
+  background-color: white;
+  color: black;
   height: 10%;
   margin: 1rem 1rem;
   padding: 10px;
   font-size: 1rem;
   &:hover {
-    background-color: white;
-    color: black;
+    background-color: #24399b;
+    color: white;
   }
 `;

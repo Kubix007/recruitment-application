@@ -9,7 +9,7 @@ import {
 import { AppDispatch, RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { changePerPage, changePage } from "../../features/search/searchSlice";
-import { ISearchSettings } from "../../shared/types";
+import { ISearchState } from "../../shared/types";
 
 const Pagination = ({
   usersPerPage,
@@ -28,12 +28,13 @@ const Pagination = ({
   }, [usersPerPage, data, totalUsers]);
 
   const handleChangePage = (e: any) => {
-    const pageSettings: ISearchSettings = {
+    const pageSettings: ISearchState = {
       pagination: {
         page: e.target.value,
         perPage: usersPerPage,
       },
       search: searchSettings.search,
+      is_activated: searchSettings.is_activated,
     };
     console.log(pageSettings);
     setPageNumber(e.target.value);
@@ -41,12 +42,13 @@ const Pagination = ({
   };
 
   const handleChangePerPage = (e: any) => {
-    const pageSettings: ISearchSettings = {
+    const pageSettings: ISearchState = {
       pagination: {
         page: pageNumber,
         perPage: e.target.value,
       },
       search: searchSettings.search,
+      is_activated: searchSettings.is_activated,
     };
     console.log(pageSettings);
     setUsersPerPage(e.target.value);

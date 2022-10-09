@@ -39,15 +39,36 @@ export interface IUserDetails {
   marketingAgreements: boolean;
   sellingRegulation: boolean;
 }
-export interface ISearchSettings {
+
+export interface ISorted {
+  sorted: string;
+  reversed: boolean;
+}
+
+export interface IUsersState {
+  users: {
+    total: number;
+    data: IFetchedUsers[];
+  };
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: string;
+}
+
+export interface ISearchState {
   pagination: {
     page: number;
     perPage: number;
   };
   search: string;
+  is_activated: string;
 }
 
-export interface ISorted {
-  sorted: string;
-  reversed: boolean;
+export interface IAuthState {
+  user: IAuthToken;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: string;
 }

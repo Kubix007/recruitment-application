@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { ISearchSettings, IUserDetails } from "../../shared/types";
+import { ISearchState, IUserDetails, IUsersState } from "../../shared/types";
 import userService from "./userService";
 
-const initialState = {
+const initialState: IUsersState = {
   users: {
     total: 0,
     data: [],
@@ -17,14 +17,15 @@ const initialState = {
 //Get users
 export const getUsers = createAsyncThunk(
   "/users/getAll",
-  async (searchSettings: ISearchSettings, thunkAPI) => {
+  async (searchSettings: ISearchState, thunkAPI) => {
     try {
       const token = (thunkAPI.getState() as RootState).auth.user.token;
       return await userService.getUsers(
-        token,
         searchSettings.pagination.page,
         searchSettings.pagination.perPage,
-        searchSettings.search
+        searchSettings.search,
+        searchSettings.is_activated,
+        token
       );
     } catch (error: any) {
       const message =
@@ -43,8 +44,8 @@ export const patchUser = createAsyncThunk(
   "/user/patch",
   async (userData: IUserDetails, thunkAPI) => {
     try {
-      const token = (thunkAPI.getState() as RootState).auth.user.token;
-      return await userService.patchUser(token, userData);
+      const token = (thunkAPI.getState() as RootState).auth.user?.token;
+      return await userService.patchUser(userData, token);
     } catch (error: any) {
       const message =
         (error.response &&

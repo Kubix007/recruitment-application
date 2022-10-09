@@ -4,10 +4,11 @@ import { IUserDetails } from "../../shared/types";
 const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
 
 const getUsers = async (
-  token: string,
   page: number,
   perPage: number,
-  search: string
+  search: string,
+  is_activated: string,
+  token?: string
 ) => {
   const config = {
     headers: {
@@ -20,12 +21,15 @@ const getUsers = async (
     },
   };
 
-  const response = await axios.get(API_URL + "auth/users", config);
+  const response = await axios.get(
+    API_URL + `auth/users?filter%5Bis_activated%5D=${is_activated}`,
+    config
+  );
 
   return response.data;
 };
 
-const patchUser = async (token: string, userData: IUserDetails) => {
+const patchUser = async (userData: IUserDetails, token?: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

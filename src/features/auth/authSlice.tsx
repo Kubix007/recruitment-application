@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-import { ILoginFormData, IRegisterUserData } from "../../shared/types";
+import {
+  IAuthState,
+  ILoginFormData,
+  IRegisterUserData,
+} from "../../shared/types";
 
 //Get user from local storage
 const user = JSON.parse(localStorage.getItem("user")!);
 
-const initialState = {
+const initialState: IAuthState = {
   user: user ? user : null,
   isError: false,
   isSuccess: false,
@@ -99,10 +103,10 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;
-        state.user = null;
+        state.user = null!;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.user = null;
+        state.user = null!;
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
@@ -116,7 +120,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;
-        state.user = null;
+        state.user = null!;
       });
   },
 });

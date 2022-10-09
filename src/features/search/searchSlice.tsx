@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ISearchState } from "../../shared/types";
 
-const initialState = {
+const initialState: ISearchState = {
   pagination: {
     page: 1,
     perPage: 4,
   },
   search: "",
+  is_activated: "ACTIVE%2CINACTIVE",
 };
 
 export const searchSlice = createSlice({
@@ -22,9 +24,12 @@ export const searchSlice = createSlice({
     setSearch(state, action) {
       state.search = action.payload;
     },
+    setIsActivated(state, action) {
+      state.is_activated = action.payload;
+    },
   },
 });
 
-export const { reset, changePage, changePerPage, setSearch } =
+export const { reset, changePage, changePerPage, setSearch, setIsActivated } =
   searchSlice.actions;
 export default searchSlice.reducer;
