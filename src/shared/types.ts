@@ -39,9 +39,12 @@ export interface IUserDetails {
   marketingAgreements: boolean;
   sellingRegulation: boolean;
 }
-export interface IPageSettings {
-  page: number;
-  perPage: number;
+export interface ISearchSettings {
+  pagination: {
+    page: number;
+    perPage: number;
+  };
+  search: string;
 }
 
 export interface ISorted {

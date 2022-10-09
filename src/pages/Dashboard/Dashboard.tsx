@@ -13,14 +13,14 @@ const Dashboard: React.FC<DashboardProps> = ({ setIsOpen }) => {
 
   const { user } = useSelector((state: RootState) => state.auth);
   const { users, isLoading } = useSelector((state: RootState) => state.users);
-  const { pagination } = useSelector((state: RootState) => state.pagination);
+  const searchSettings = useSelector((state: RootState) => state.search);
 
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
-    dispatch(getUsers(pagination));
-  }, [user, navigate, dispatch, pagination]);
+    dispatch(getUsers(searchSettings));
+  }, [user, navigate, dispatch, searchSettings]);
 
   if (isLoading) {
     return <Spinner />;

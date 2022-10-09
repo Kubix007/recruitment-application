@@ -21,7 +21,9 @@ import tableFunctions from "./sortingFunctions/TableFunctions";
 
 const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   const [users, setUsers] = useState<IFetchedUsers[]>(data);
-  const { pagination } = useSelector((state: RootState) => state.pagination);
+  const { pagination, search } = useSelector(
+    (state: RootState) => state.search
+  );
 
   const [usersPerPage, setUsersPerPage] = useState(pagination.perPage);
   const [pageNumber, setPageNumber] = useState(pagination.page);
@@ -64,7 +66,7 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
 
   return (
     <>
-      <Toolbar setUsers={setUsers} data={users} />
+      <Toolbar />
       <ButtonContainer>
         <EditAccountButton onClick={() => setIsOpen(true)}>
           Edytuj swoje konto

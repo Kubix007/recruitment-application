@@ -5,10 +5,11 @@ const initialState = {
     page: 1,
     perPage: 4,
   },
+  search: "",
 };
 
-export const paginationSlice = createSlice({
-  name: "pagination",
+export const searchSlice = createSlice({
+  name: "search",
   initialState,
   reducers: {
     reset: (state) => initialState,
@@ -18,8 +19,12 @@ export const paginationSlice = createSlice({
     changePerPage(state, action) {
       state.pagination.perPage = action.payload;
     },
+    setSearch(state, action) {
+      state.search = action.payload;
+    },
   },
 });
 
-export const { reset, changePage, changePerPage } = paginationSlice.actions;
-export default paginationSlice.reducer;
+export const { reset, changePage, changePerPage, setSearch } =
+  searchSlice.actions;
+export default searchSlice.reducer;

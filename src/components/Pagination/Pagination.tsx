@@ -8,11 +8,8 @@ import {
 } from "./Pagination.style";
 import { AppDispatch, RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changePerPage,
-  changePage,
-} from "../../features/pagination/paginationSlice";
-import { IPageSettings } from "../../shared/types";
+import { changePerPage, changePage } from "../../features/search/searchSlice";
+import { ISearchSettings } from "../../shared/types";
 
 const Pagination = ({
   usersPerPage,
@@ -23,7 +20,7 @@ const Pagination = ({
   data,
 }: any) => {
   const [pageCount, setPageCount] = useState<number>(0);
-  const { pagination } = useSelector((state: RootState) => state.pagination);
+  const searchSettings = useSelector((state: RootState) => state.search);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -31,9 +28,12 @@ const Pagination = ({
   }, [usersPerPage, data, totalUsers]);
 
   const handleChangePage = (e: any) => {
-    const pageSettings: IPageSettings = {
-      page: e.target.value,
-      perPage: usersPerPage,
+    const pageSettings: ISearchSettings = {
+      pagination: {
+        page: e.target.value,
+        perPage: usersPerPage,
+      },
+      search: searchSettings.search,
     };
     console.log(pageSettings);
     setPageNumber(e.target.value);
@@ -41,9 +41,12 @@ const Pagination = ({
   };
 
   const handleChangePerPage = (e: any) => {
-    const pageSettings: IPageSettings = {
-      page: pageNumber,
-      perPage: e.target.value,
+    const pageSettings: ISearchSettings = {
+      pagination: {
+        page: pageNumber,
+        perPage: e.target.value,
+      },
+      search: searchSettings.search,
     };
     console.log(pageSettings);
     setUsersPerPage(e.target.value);
@@ -71,7 +74,7 @@ const Pagination = ({
           onChange={handleChangePerPage}
         >
           {perPageNumber.map((option) => {
-            if (option === pagination.perPage) {
+            if (option === searchSettings.pagination.perPage) {
               return (
                 <option selected={true} value={option}>
                   {option}
@@ -84,7 +87,7 @@ const Pagination = ({
         <PaginationLabel htmlFor="page">Strona:</PaginationLabel>
         <PaginationSelect name="page" id="page" onChange={handleChangePage}>
           {pagesNumber.map((option) => {
-            if (option * 1 === pagination.page) {
+            if (option * 1 === searchSettings.pagination.page) {
               return (
                 <option selected={true} value={option}>
                   {option}

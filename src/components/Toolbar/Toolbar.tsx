@@ -1,31 +1,27 @@
-import { Props } from "./types";
 import {
   ToolbarContainer,
   ToolbarSearchButton,
   ToolbarSearchContainer,
   ToolbarSearchInput,
+  ToolbarFilterContainer,
+  ToolbarFilterButton,
 } from "./Toolbar.style";
-import { IFetchedUsers } from "../../shared/types";
-import { ChangeEvent, useState } from "react";
-import { RootState } from "../../app/store";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { AppDispatch, RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearch } from "../../features/search/searchSlice";
 
-const Toolbar: React.FC<Props> = ({ setUsers, data }) => {
+const Toolbar: React.FC = () => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
-  const [temp, setTemp] = useState<IFetchedUsers[]>();
-  const { users } = useSelector((state: RootState) => state.users);
+  const searchSettings = useSelector((state: RootState) => state.search);
+  const dispatch: AppDispatch = useDispatch();
 
-  const search = (event: ChangeEvent) => {
-    if ((event.target as HTMLInputElement).value === "") {
-      setUsers(users.data);
-    }
-    const matchedUsers = data.filter((user: IFetchedUsers) => {
-      return `${user.name} ${user.surname}`
-        .toLowerCase()
-        .includes((event.target as HTMLInputElement).value.toLowerCase());
-    });
-    setSearchPhrase((event.target as HTMLInputElement).value);
-    setTemp(matchedUsers);
+  useEffect(() => {
+    setSearchPhrase(searchSettings.search);
+  }, [searchSettings.search]);
+
+  const handleClick = () => {
+    dispatch(setSearch(searchPhrase));
   };
 
   return (
@@ -35,12 +31,15 @@ const Toolbar: React.FC<Props> = ({ setUsers, data }) => {
           type="text"
           placeholder="Filtruj po imię, nazwisko"
           value={searchPhrase}
-          onChange={search}
+          onChange={(event) => setSearchPhrase(event.target.value)}
         />
+        <ToolbarSearchButton onClick={handleClick}>Szukaj</ToolbarSearchButton>
       </ToolbarSearchContainer>
-      <ToolbarSearchButton onClick={() => setUsers(temp)}>
-        Szukaj
-      </ToolbarSearchButton>
+      <ToolbarFilterContainer>
+        <ToolbarFilterButton>Wszyscy</ToolbarFilterButton>
+        <ToolbarFilterButton>Aktywni</ToolbarFilterButton>
+        <ToolbarFilterButton>Nieaktywni</ToolbarFilterButton>
+      </ToolbarFilterContainer>
     </ToolbarContainer>
   );
 };

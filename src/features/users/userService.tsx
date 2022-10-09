@@ -3,7 +3,12 @@ import { IUserDetails } from "../../shared/types";
 
 const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
 
-const getUsers = async (token: string, page: number, perPage: number) => {
+const getUsers = async (
+  token: string,
+  page: number,
+  perPage: number,
+  search: string
+) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -11,6 +16,7 @@ const getUsers = async (token: string, page: number, perPage: number) => {
     params: {
       page: page,
       perPage: perPage,
+      search: search,
     },
   };
 

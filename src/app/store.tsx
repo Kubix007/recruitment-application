@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import userReducer from "../features/users/userSlice";
-import paginationReducer from "../features/pagination/paginationSlice";
+import searchReducer from "../features/search/searchSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     users: userReducer,
-    pagination: paginationReducer,
+    search: searchReducer,
   },
 });
 

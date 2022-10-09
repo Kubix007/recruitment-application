@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { IPageSettings, IUserDetails } from "../../shared/types";
+import { ISearchSettings, IUserDetails } from "../../shared/types";
 import userService from "./userService";
 
 const initialState = {
@@ -17,13 +17,14 @@ const initialState = {
 //Get users
 export const getUsers = createAsyncThunk(
   "/users/getAll",
-  async (pageSettings: IPageSettings, thunkAPI) => {
+  async (searchSettings: ISearchSettings, thunkAPI) => {
     try {
       const token = (thunkAPI.getState() as RootState).auth.user.token;
       return await userService.getUsers(
         token,
-        pageSettings.page,
-        pageSettings.perPage
+        searchSettings.pagination.page,
+        searchSettings.pagination.perPage,
+        searchSettings.search
       );
     } catch (error: any) {
       const message =
