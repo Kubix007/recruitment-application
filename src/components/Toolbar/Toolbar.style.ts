@@ -14,6 +14,7 @@ export const ToolbarSearchButton = styled.button`
   background-color: white;
   color: black;
   padding: 10px;
+  width: 70%;
   font-size: 1rem;
   &:hover {
     background-color: #24399b;
@@ -28,10 +29,10 @@ export const ToolbarSearchContainer = styled.div`
 `;
 
 export const ToolbarSearchInput = styled.input`
-  width: 100%;
   height: 100%;
   padding: 10px;
   font-size: 1rem;
+  width: 180%;
   font-family: FiraSans-Light;
   outline: none;
   border: 0.25px solid #676767;

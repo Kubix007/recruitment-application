@@ -4,7 +4,6 @@ import {
   PaginationContainer,
   PaginationLabel,
   PaginationSelect,
-  PaginationLabelInfo,
 } from "./Pagination.style";
 import { AppDispatch, RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -67,7 +66,6 @@ const Pagination = ({
 
   return (
     <PaginationContainer>
-      <PaginationLabelInfo>W trakie rozbudowy</PaginationLabelInfo>
       <div>
         <PaginationLabel htmlFor="perPage">Na stronie:</PaginationLabel>
         <PaginationSelect

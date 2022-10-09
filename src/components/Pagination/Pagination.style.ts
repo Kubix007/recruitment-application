@@ -11,11 +11,6 @@ export const PaginationLabel = styled.label`
   font-family: FiraSans-Light;
 `;
 
-export const PaginationLabelInfo = styled.label`
-  font-family: FiraSans-Light;
-  color: red;
-`;
-
 export const PaginationSelect = styled.select`
   font-family: FiraSans-Light;
   margin-bottom: 10px;

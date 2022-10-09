@@ -4,6 +4,7 @@ import Toolbar from "../Toolbar";
 import { IFetchedUsers, ISorted } from "../../shared/types";
 import { EditAccountButton, ButtonContainer } from "./Table.style";
 import { TableProps } from "./types";
+import { ReactComponent as Elipse } from "../../img/Ellipse.svg";
 import {
   ResponsiveTable,
   TableHeader,
@@ -18,6 +19,7 @@ import Pagination from "../Pagination/Pagination";
 import { RootState } from "../../app/store";
 import { useSelector } from "react-redux";
 import tableFunctions from "./sortingFunctions/TableFunctions";
+import AvatarIcon from "../AvatarIcon";
 
 const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
   const [users, setUsers] = useState<IFetchedUsers[]>(data);
@@ -31,12 +33,22 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
     reversed: false,
   });
 
+  const sliceAvatarText = (name: string, surname: string) => {
+    if (name === null) {
+      name = "";
+    }
+    if (surname === null) {
+      surname = "";
+    }
+    return `${name.slice(0, 1)}${surname.slice(0, 1)}`;
+  };
+
   const render = () => {
     return users.map((user) => {
       return (
         <TableRow key={user.id}>
           <TableColumn1 className="col-1" data-label="Id">
-            {user.id}
+            <AvatarIcon text={sliceAvatarText(user.name, user.surname)} />
           </TableColumn1>
           <TableColumn2 className="col-2" data-label="Imię">
             {user.name}
@@ -72,15 +84,7 @@ const Table: React.FC<TableProps> = ({ data, setIsOpen, totalUsers }) => {
       </ButtonContainer>
       <ResponsiveTable>
         <TableHeader className="table-header">
-          <TableColumn1
-            onClick={() =>
-              tableFunctions.sortById(users, setUsers, setSorted, sorted)
-            }
-            className="col-1"
-          >
-            Id
-            {renderArrow()}
-          </TableColumn1>
+          <TableColumn1 className="col-1"></TableColumn1>
           <TableColumn2
             onClick={() =>
               tableFunctions.sortByName(users, setUsers, setSorted, sorted)

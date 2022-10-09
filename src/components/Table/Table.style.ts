@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const ResponsiveTable = styled.ul`
   min-width: 0;
   & > .col-1 {
-    flex-basis: 10%;
+    flex-basis: 5%;
   }
   & > .col-2 {
-    flex-basis: 100%;
+    flex-basis: 15%;
   }
   & > .col-3 {
     flex-basis: 25%;
@@ -80,16 +80,28 @@ export const TableColumn1 = styled.div`
   flex-basis: 10%;
 `;
 export const TableColumn2 = styled.div`
-  flex-basis: 40%;
+  flex-basis: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const TableColumn3 = styled.div`
   flex-basis: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const TableColumn4 = styled.div`
   flex-basis: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const TableColumn5 = styled.div`
   flex-basis: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ButtonContainer = styled.div`

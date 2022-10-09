@@ -40,6 +40,7 @@ const sortByBirthDate = (
   });
   setUsers(usersCopy);
   setSorted({ sorted: "birth_date", reversed: !sorted.reversed });
+  console.log("Birth_date");
 };
 
 const sortByEmail = (
@@ -57,6 +58,7 @@ const sortByEmail = (
   });
   setUsers(usersCopy);
   setSorted({ sorted: "email", reversed: !sorted.reversed });
+  console.log("Email");
 };
 
 const sortByName = (
@@ -74,6 +76,7 @@ const sortByName = (
   });
   setUsers(usersCopy);
   setSorted({ sorted: "name", reversed: !sorted.reversed });
+  console.log("Name");
 };
 
 const sortBySurname = (
@@ -91,6 +94,7 @@ const sortBySurname = (
   });
   setUsers(usersCopy);
   setSorted({ sorted: "surname", reversed: !sorted.reversed });
+  console.log("Surname");
 };
 
 const tableFunctions = {

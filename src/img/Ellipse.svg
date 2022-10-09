@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52.727" height="52.727" viewBox="0 0 52.727 52.727">
+  <style>
+    .elipse{
+      font-family: FiraSans-Light;
+      fill: white;
+    }
+  </style>
+  <circle id="Ellipse_19" data-name="Ellipse 19" cx="26.363" cy="26.363" r="26.363" fill="#589103"/>
+  <text x="16" y="32" class="elipse">My</text>
+</svg>

@@ -14,11 +14,6 @@ import { setSearch, setIsActivated } from "../../features/search/searchSlice";
 const Toolbar: React.FC = () => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
   const searchSettings = useSelector((state: RootState) => state.search);
-  const [isSelected, setIsSelected] = useState({
-    all: true,
-    active: false,
-    inactive: false,
-  });
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -31,25 +26,10 @@ const Toolbar: React.FC = () => {
 
   const handleFilterButton = (buttonName: string) => {
     if (buttonName === "all") {
-      setIsSelected({
-        all: true,
-        active: false,
-        inactive: false,
-      });
       dispatch(setIsActivated("ACTIVE%2CINACTIVE"));
     } else if (buttonName === "active") {
-      setIsSelected({
-        all: false,
-        active: true,
-        inactive: false,
-      });
       dispatch(setIsActivated("ACTIVE"));
     } else if (buttonName === "inactive") {
-      setIsSelected({
-        all: false,
-        active: false,
-        inactive: true,
-      });
       dispatch(setIsActivated("INACTIVE"));
     }
   };
