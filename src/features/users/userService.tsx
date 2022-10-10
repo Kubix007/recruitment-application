@@ -16,6 +16,7 @@ const getUsers = async (
       Authorization: `Bearer ${token}`,
       "Access-Control-Allow-Origin":
         "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
+      "Content-Security-Policy": "upgrade-insecure-requests",
     },
     params: {
       page: page,
@@ -39,6 +40,7 @@ const patchUser = async (userData: IUserDetails, token?: string) => {
       Authorization: `Bearer ${token}`,
       "Access-Control-Allow-Origin":
         "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
+      "Content-Security-Policy": "upgrade-insecure-requests",
     },
   };
   const response = await axios.patch(API_URL + "auth/user", userData, config);

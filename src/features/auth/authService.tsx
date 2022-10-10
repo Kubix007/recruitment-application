@@ -10,6 +10,7 @@ const register = async (userData: IRegisterUserData) => {
     headers: {
       "Access-Control-Allow-Origin":
         "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
+      "Content-Security-Policy": "upgrade-insecure-requests",
     },
   };
   const response = await axios.post(API_URL + "register", userData, config);
@@ -27,6 +28,7 @@ const login = async (userData: ILoginFormData) => {
     headers: {
       "Access-Control-Allow-Origin":
         "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
+      "Content-Security-Policy": "upgrade-insecure-requests",
     },
   };
   const response = await axios.post(API_URL + "login/check", userData, config);
