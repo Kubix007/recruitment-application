@@ -6,7 +6,12 @@ const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
 
 //Register user
 const register = async (userData: IRegisterUserData) => {
-  const response = await axios.post(API_URL + "register", userData);
+  const config = {
+    headers: {
+      crossOriginIsolated: true,
+    },
+  };
+  const response = await axios.post(API_URL + "register", userData, config);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -17,7 +22,12 @@ const register = async (userData: IRegisterUserData) => {
 
 //Login user
 const login = async (userData: ILoginFormData) => {
-  const response = await axios.post(API_URL + "login/check", userData);
+  const config = {
+    headers: {
+      crossOriginIsolated: true,
+    },
+  };
+  const response = await axios.post(API_URL + "login/check", userData, config);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
