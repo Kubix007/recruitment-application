@@ -4,6 +4,13 @@ export const ToolbarContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media all and (max-width: 767px) {
+     {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 `;
 
 export const ToolbarSearchButton = styled.button`
@@ -20,12 +27,24 @@ export const ToolbarSearchButton = styled.button`
     background-color: #24399b;
     color: white;
   }
+  @media all and (max-width: 767px) {
+     {
+      width: 100%;
+    }
+  }
 `;
 
 export const ToolbarSearchContainer = styled.div`
   margin: 1rem 0;
   width: 30%;
   display: flex;
+  @media all and (max-width: 767px) {
+     {
+      flex-direction: row;
+      justify-content: center;
+      width: -webkit-fill-available;
+    }
+  }
 `;
 
 export const ToolbarSearchInput = styled.input`
@@ -37,11 +56,24 @@ export const ToolbarSearchInput = styled.input`
   outline: none;
   border: 0.25px solid #676767;
   border-radius: 12px;
+  @media all and (max-width: 767px) {
+     {
+      width: 150%;
+      font-size: 15px;
+      align-self: center;
+    }
+  }
 `;
 
 export const ToolbarFilterContainer = styled.div`
   display: flex;
   align-items: center;
+  @media all and (max-width: 767px) {
+     {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
 `;
 
 export const ToolbarFilterButton = styled.button`

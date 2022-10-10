@@ -107,6 +107,11 @@ export const TableColumn5 = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
+  @media all and (max-width: 767px) {
+     {
+      justify-content: center;
+    }
+  }
 `;
 
 export const EditAccountButton = styled.button`

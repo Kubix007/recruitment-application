@@ -7,7 +7,15 @@ export const LoginContainer = styled.div`
   border-radius: 11px;
   opacity: 1;
   padding: 10%;
+  @media all and (max-width: 767px) {
+    & > section, input, label, button {
+      font-size: 12px;
+      display: block;
+
+    }
+  }
 `;
+
 export const LoginButton = styled.button`
   transform: matrix(1, 0, 0, 1, 0, 0);
   border: 1px solid #24399b;

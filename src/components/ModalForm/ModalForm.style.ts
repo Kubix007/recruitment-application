@@ -6,6 +6,12 @@ export const FirstModalFormInputContainer = styled.div`
   width: 100%;
   height: 100%;
   gap: 10%;
+  padding: 10px 0px 10px 0px;
+  @media all and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+  }
 `;
 
 export const SecondModalFormInputContainer = styled.div`
@@ -15,7 +21,10 @@ export const SecondModalFormInputContainer = styled.div`
   height: 100%;
   gap: 10%;
   justify-content: space-evenly;
-  margin-top: 20px;
+  @media all and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const ThirdModalFormInputContainer = styled.div`
@@ -24,7 +33,13 @@ export const ThirdModalFormInputContainer = styled.div`
   width: 100%;
   height: 100%;
   justify-content: space-evenly;
-  gap: 10%;
+  gap: 20%;
+  padding: 10px 0px 10px 0px;
+  @media all and (max-width: 600px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: self-start;
+  }
 `;
 export const FirstModalFormGroup = styled.div``;
 
@@ -96,7 +111,6 @@ export const ModalFormPhoneInput = styled.input`
     border-bottom: 2px solid black;
   }
 `;
-export const ModalFormSelectInput = styled.input``;
 
 export const ModalFormError = styled.p`
   font-family: FiraSans-Light;
@@ -104,6 +118,7 @@ export const ModalFormError = styled.p`
   color: #ff1d25;
   text-align: left;
   width: 100%;
+  margin-top: 10px;
 `;
 
 export const ModalFormCheckboxError = styled.div`

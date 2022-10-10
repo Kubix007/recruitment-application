@@ -10,14 +10,13 @@ export const ModalBackground = styled.div`
   align-items: center;
 `;
 export const ModalContainer = styled.div`
-  width: 50%;
-  height: 50%;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
   padding: 25px;
+  min-width: 200px;
 
   & > .title {
     display: inline-block;
@@ -31,19 +30,23 @@ export const ModalContainer = styled.div`
 
   & > .body {
     display: flex;
-    height: 100%;
-    width: 100%;
     align-items: center;
     justify-content: space-evenly;
     gap: 20%;
+    padding: 10px 0px 10px 0px;
   }
 
   & > .footer {
-    flex: 20%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    min-height: 50px;
+
+    @media all and (max-width: 600px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 `;
 export const TitleCloseContainer = styled.div`
@@ -89,6 +92,16 @@ export const ModalButtonCancel = styled.button`
   }
 `;
 
+export const ModalFormParagraph = styled.p`
+  font-family: FiraSans-Light;
+  font-size: FiraSans-Light;
+`;
+
 export const ModelButtonsContainer = styled.div`
   display: flex;
+`;
+
+export const ModelCloseButton = styled.button`
+  border: none;
+  background: none;
 `;
