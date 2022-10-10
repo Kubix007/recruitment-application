@@ -14,8 +14,7 @@ const getUsers = async (
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Access-Control-Allow-Origin":
-        "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
+      "Access-Control-Allow-Origin": "*",
       "Content-Security-Policy": "upgrade-insecure-requests",
     },
     params: {
@@ -38,8 +37,7 @@ const patchUser = async (userData: IUserDetails, token?: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Access-Control-Allow-Origin":
-        "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
+      "Access-Control-Allow-Origin": "*",
       "Content-Security-Policy": "upgrade-insecure-requests",
     },
   };
