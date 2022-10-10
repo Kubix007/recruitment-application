@@ -14,7 +14,7 @@ const getUsers = async (
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      crossOriginIsolated: true,
+      origin: "*",
     },
     params: {
       page: page,
@@ -36,7 +36,7 @@ const patchUser = async (userData: IUserDetails, token?: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      crossOriginIsolated: true,
+      origin: "*",
     },
   };
   const response = await axios.patch(API_URL + "auth/user", userData, config);
