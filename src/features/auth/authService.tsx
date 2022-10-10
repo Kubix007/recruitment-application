@@ -8,7 +8,8 @@ const API_URL = "http://api.ultimate.systems/public/index.php/api/v1/";
 const register = async (userData: IRegisterUserData) => {
   const config = {
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin":
+        "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
     },
   };
   const response = await axios.post(API_URL + "register", userData, config);
@@ -24,7 +25,8 @@ const register = async (userData: IRegisterUserData) => {
 const login = async (userData: ILoginFormData) => {
   const config = {
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin":
+        "'http://api.ultimate.systems/public/index.php/api/v1/login/check",
     },
   };
   const response = await axios.post(API_URL + "login/check", userData, config);
